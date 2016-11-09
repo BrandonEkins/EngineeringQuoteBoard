@@ -1,0 +1,147 @@
+body {
+    background-image: url("http://wallpapercave.com/wp/7NvodtH.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-color: black !important;
+    overflow: hidden;
+    background-size: 100% 100%;
+}
+
+Defaultcolors {
+    color: #dd4814 #77216f #5e2750 #2c001e #aea79f #333333 #003776
+}
+
+.mainCard {
+    margin-top: 3%;
+    margin-left: 10%;
+    height: 90%;
+    width: 80%;
+    background-color: transparent;
+}
+
+.arrow {
+    cursor: pointer;
+}
+
+.day {
+    cursor: pointer;
+    display: inline-block;
+    border: black solid 1px;
+    width: 14.28%;
+    height: 16.6%;
+    vertical-align: top;
+    opacity: 1;
+    background-color: #333333;
+    opacity: .8;
+    color: white;
+}
+
+.day:hover {
+    background-color: #333355;
+}
+
+.event {
+    cursor: pointer;
+    padding: 10px;
+}
+
+.event:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.exit {
+    cursor: pointer;
+    font-size: 1.5em;
+    padding: 5px 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.exit:hover {
+    color: #fff;
+}
+
+.gone {
+    visibility: hidden !important;
+}
+
+.dayLabels {
+    opacity: .8;
+    color: white;
+    text-align: center;
+}
+
+.selected_event {
+    background: #111;
+    color: #ccc;
+    display: block;
+    height: 350px;
+    margin: auto;
+    margin-top: 85px;
+    padding: 10px;
+    position: relative;
+    width: 350px;
+}
+
+.selected_event h3 {
+    margin-top: 0;
+}
+
+.selected_event input {
+    color: #000;
+    width: 100%;
+}
+
+.selected_event_underlay {
+    background: rgba(0, 0, 0, 0);
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.specific_day {
+    background: rgba(0, 0, 0, 0.9);
+    color: #ccc;
+    display: block;
+    height: calc(100% - 100px);
+    margin: auto;
+    margin-top: 50px;
+    padding: 10px;
+    position: relative;
+    width: 400px;
+}
+
+.specific_day h3 {
+    margin-top: 0;
+}
+
+.specific_day_events {
+    /*background: #fff;*/
+    max-height: calc(100% - 46px);
+    width: 100%;
+}
+
+.specific_day_underlay {
+    background: rgba(0, 0, 0, 0.3);
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.toolbar {
+    background-color: #003776;
+    color: white;
+    opacity: .8;
+}
+
+.today {
+    background-color: #666666;
+}
