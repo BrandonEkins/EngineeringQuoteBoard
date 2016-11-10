@@ -102,8 +102,22 @@ angular.module('app', ['ngMaterial'])
                 data: $scope.calendar
             }).then(function mySucces(response) {
                 console.log(response);
+                $mdDialog.show(
+                    $mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Success!')
+                        .textContent('This calendar has been successfully saved!')
+                        .ok('OK')
+                );
             }, function myError(response) {
                 console.log(response);
+                $mdDialog.show(
+                    $mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Error!')
+                        .textContent('There was an error when trying to save this calendar!')
+                        .ok('OK')
+                );
             });
         }
 
