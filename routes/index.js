@@ -11,10 +11,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/savecalendar', function(req, res) {
-    console.log('POST /');
-    console.log(req.query.q);
-    console.log(req.body);
-
     for (var i = 0; i < calendars.length; i++) { // checks database for pre existing calendar
         if (calendars[i].user == req.query.q) {
             calendars[i] = { user: req.query.q, calendar: req.body };
@@ -23,6 +19,13 @@ router.post('/savecalendar', function(req, res) {
     res.end('success');
 });
 
+router.get('/getnames', function(req,res,next) {
+    var names = [];
+    for(var i = 0; i < calendars.length; i++){
+        names.push(calendars[i].user);
+    }
+   res.status(200).json(names); 
+});
 
 
 router.get('/getcalendar', function(req, res, next) {
