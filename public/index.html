@@ -13,7 +13,7 @@
 
 <body ng-app="app" ng-controller="mainCtrl">
     <div class="spacer" style="height:20px"></div>
-    <div class="mainCard">
+    <div class="mainCard" ng-show="CalendarName && CalendarName != '-1'">
         <h1 style="text-align:center; color: grey">{{CalendarName}}</h1>
         <md-toobar class="md-toolbar-tools toolbar">{{currentMonth.name}} <span flex></span>
             <md-button class="md-primary" style="background-color:#333333; color: white; font-weight: strong" ng-click="saveCalendar()">Save Calendar</md-button>
@@ -40,6 +40,20 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div ng-show="CalendarName == '-1'" class="selectCalendar">
+        <md-toobar class="md-toolbar-tools toolbar">Select a Calendar</md-toobar>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Select a Calendar</label>
+            <md-select ng-model="tempCalendarName">
+                <md-option ng-repeat="name in names" value="{{name}}">
+                    {{name}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+        <md-button class="md-primary" ng-click="selectCalendar()">
+            Select
+        </md-button>
     </div>
     <div class='specific_day_underlay' ng-hide="selected_date == undefined">
         <div class='specific_day'>
