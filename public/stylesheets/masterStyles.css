@@ -145,3 +145,10 @@ Defaultcolors {
 .today {
     background-color: #666666;
 }
+
+.selectCalendar {
+    background-color: white;
+    height: 400px;
+    width: 600px;
+    margin: 20px 0px 0px 20px;
+}
