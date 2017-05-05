@@ -29,11 +29,10 @@
         <md-content>
             <md-list>
                 <md-list-item class="md-3-line" ng-repeat="quote in quotes">
-                    <div class="md-list-item-text">
-                        <div ta-bind ng-model="quote.quote"></div>
-
-                        <h4>Author(s): {{quote.users}}</h4>
-                        <p>{{quote.date.toDateString()}}</p>
+                    <div style="margin-top: 10px; margin-bottom:5px;">
+                        <div style="color:black!important" ta-bind ng-model="quote.quote"></div>
+                        <p style="color:rgba(0,0,0,0.54); margin-bottom:0px;">Author(s): {{quote.users}}</p>
+                        <p style="color:rgba(0,0,0,0.54); ">{{quote.date.toDateString()}}</p>
 
                     </div>
                     <div>
