@@ -1,82 +1,94 @@
 <head>
     <title>Angular Calander</title>
     <link rel="stylesheet" href="stylesheets/masterStyles.css">
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular-rangy.min.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular-sanitize.min.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular.min.js'></script>
     <script src="javascripts/angular.js"></script>
 </head>
 
 <body ng-app="app" ng-controller="mainCtrl">
-    <div class="spacer" style="height:20px"></div>
-    <div class="mainCard" ng-show="CalendarName && CalendarName != '-1'">
-        <h1 style="text-align:center; color: grey">{{CalendarName}}</h1>
-        <md-toobar class="md-toolbar-tools toolbar">{{currentMonth.name}} <span flex></span>
-            <md-button class="md-primary" style="background-color:#333333; color: white; font-weight: strong" ng-click="saveCalendar()">Save Calendar</md-button>
-            <span ng-hide="compareHide('start')" ng-click="backMonth()" class="arrow"><</span>
-            <span ng-hide="!compareHide('start')">&nbsp;</span>&nbsp;
-            <span ng-hide="compareHide('end')" class="arrow" ng-click="forwardMonth()">></span>
-            <span ng-hide="!compareHide('end')">&nbsp;</span>
-        </md-toobar>
+    <md-card class="largeBox" style="width:800px">
+        <md-toolbar class="md-theme-light">
+            <h2 class="md-toolbar-tools">
+                <span>Engineering Quote Board</span>
+                <md-button style="margin-left:450px;" ng-click="showAddDialog()" class="md-secondary">Add</md-button>
+            </h2>
 
-        <div style="height:80%; width:100%">
-            <div layout="row">
-                <div class="dayLabels" flex>Sunday</div>
-                <div class="dayLabels" flex>Monday</div>
-                <div class="dayLabels" flex>Tuesday</div>
-                <div class="dayLabels" flex>Wednesday</div>
-                <div class="dayLabels" flex>Thursday</div>
-                <div class="dayLabels" flex>Friday</div>
-                <div class="dayLabels" flex>Saturday</div>
-            </div>
-            <div class="day" ng-class="{gone: day.date === null, today:isToday(day.date)}" ng-repeat="day in currentMonth.days track by $index" ng-click="$parent.selected_date = $index">
-                <div>
-                    <span style="margin-left: 3px">{{day.date}} ({{day.events.length}})</span>
-                    <div ng-repeat="event in day.events" style="white-space: nowrap; overflow: hidden; padding-left: 4px">{{event.name}}@{{event.time}}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div ng-show="CalendarName == '-1'" class="selectCalendar">
-        <md-toobar class="md-toolbar-tools toolbar">Select a Calendar</md-toobar>
-        <md-input-container class="md-block" flex-gt-sm>
-            <label>Select a Calendar</label>
-            <md-select ng-model="tempCalendarName">
-                <md-option ng-repeat="name in names" value="{{name}}">
-                    {{name}}
-                </md-option>
-            </md-select>
-        </md-input-container>
-        <md-button class="md-primary" ng-click="selectCalendar()">
-            Select
-        </md-button>
-    </div>
-    <div class='specific_day_underlay' ng-hide="selected_date == undefined">
-        <div class='specific_day'>
-            <h3>{{currentMonth.name}} {{currentMonth.days[selected_date].date}}, 2016</h3>
-            <div class="specific_day_events">
-                <div class="event" ng-repeat="event in currentMonth.days[selected_date].events" ng-click="$parent.selected_event = $parent.currentMonth.days[$parent.selected_date].events[$index]">
-                    <h6>{{event.time}}</h6>
-                    <h5>{{event.name}} @ {{event.location}}</h5>
-                </div>
-            </div>
-            <span class="exit" ng-click="selected_date = null">X</span>
-            <div class="event" ng-click="addEvent()">+ Add Event</div>
-        </div>
-        <div class="selected_event_underlay" ng-hide="selected_event == undefined">
-            <div class="selected_event">
-                <h3>Edit Event</h3>
-                <h4>Event:</h4><input type="text" ng-model="selected_event.name" /><br>
-                <h4>Time:</h4><input type="text" ng-model="selected_event.time" /><br>
-                <h4>Location:</h4><input type="text" ng-model="selected_event.location" /><br>
-                <span class="exit" ng-click="deleteEvent()">X</span>
-                <md-button class="md-primary" ng-click="selected_event = null">Save</button>
-            </div>
-        </div>
-    </div>
+        </md-toolbar>
 
+        <md-content>
+            <md-list>
+                <md-list-item class="md-3-line" ng-repeat="quote in quotes">
+                    <div class="md-list-item-text">
+                        <div ta-bind ng-model="quote.quote"></div>
+
+                        <h4>Author(s): {{quote.users}}</h4>
+                        <p>{{quote.date.toDateString()}}</p>
+
+                    </div>
+                    <div>
+                        <md-button ng-click="showEditDialog($index)" class="md-secondary">Edit</md-button>
+                        <md-button ng-click="deleteQuote($index)" class="md-secondary">Delete</md-button>
+                    </div>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </md-card>
+    <div style="visibility: hidden">
+        <div class="md-dialog-container" id="AddDialog">
+            <md-dialog layout-padding style="width:500px">
+                <md-toolbar class="md-theme-light">
+                    <h2 class="md-toolbar-tools">
+                        <span>Add Quote</span>
+                    </h2>
+                </md-toolbar>
+
+                <label style="margin-top:10px;">Quote</label>
+                <div class=textStuff text-angular ta-toolbar="[['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre'],['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'redo', 'html', 'insertImage','insertLink', 'insertVideo']]" ng-model="newQuote.quote"></div>
+
+                <md-input-container>
+                    <label>Author(s)</label>
+                    <input ng-model="newQuote.users">
+                </md-input-container>
+                <span>
+                <md-button class="md-secondary" ng-click="hideDialog()">Cancel</md-button>
+                <md-button class="md-secondary" ng-click="saveQuote('new')">Save</md-button>
+                </span>
+            </md-dialog>
+        </div>
+    </div>
+    <div style="visibility: hidden">
+        <div class="md-dialog-container" id="editDialog">
+            <md-dialog layout-padding style="width:500px">
+                <md-toolbar class="md-theme-light">
+                    <h2 class="md-toolbar-tools">
+                        <span>Edit Quote</span>
+                    </h2>
+                </md-toolbar>
+
+                <label style="margin-top:10px;">Quote</label>
+                <div class=textStuff text-angular ta-toolbar="[['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre'],['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'redo', 'html', 'insertImage','insertLink', 'insertVideo']]" ng-model="editQuote.quote"></div>
+
+                <md-input-container>
+                    <label>Author(s)</label>
+                    <input ng-model="editQuote.users">
+                </md-input-container>
+                <span>
+                <md-button class="md-secondary" ng-click="hideDialog()">Cancel</md-button>
+                <md-button class="md-secondary" ng-click="saveQuote('edit')">Save</md-button>
+                </span>
+            </md-dialog>
+        </div>
+    </div>
 </body>
